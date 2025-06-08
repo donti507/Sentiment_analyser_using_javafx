@@ -1,0 +1,45 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+bool canPassAllDoors(int n, int x, const vector<int>& doors) {
+    // Try pressing the button at every possible starting index
+    for (int start = 0; start < n; ++start) {
+        int time = 0;
+        bool success = true;
+        for (int i = 0; i < n; ++i) {
+            if (doors[i] == 0) {
+                time++;
+            } else {
+                // If we are in the range where button was pressed
+                if (i >= start && i < start + x) {
+                    time++;
+                } else {
+                    success = false;
+                    break;
+                }
+            }
+        }
+        if (success) return true;
+    }
+    return false;
+}
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, x;
+        cin >> n >> x;
+        vector<int> doors(n);
+        for (int i = 0; i < n; ++i) {
+            cin >> doors[i];
+        }
+        if (canPassAllDoors(n, x, doors)) {
+            cout << "YES\n";
+        } else {
+            cout << "NO\n";
+        }
+    }
+    return 0;
+}
